@@ -6,7 +6,6 @@ canvas.width = 1080;
 
 var img = new Image();
 img.onload = function(){
-  //img.setAttribute('crossorigin', 'anonymous');
   ctx.drawImage(img, 0, 0);
 }
 img.src = "base_logo_with_cutout.png";
@@ -33,18 +32,13 @@ rower.oninput = function(){
   draw();
 }
 
-
 var cimg = new Image();
 cimg.onload = function(){
-  //cimg.setAttribute('crossorigin', 'anonymous');
   draw();
-  //ctx.drawImage(cimg, 200, 500, cimg.width/scale, cimg.height/scale);
-  //ctx.drawImage(img, 0, 0);
 }
 
 file.onchange = function(event){
   console.log(event.target.files[0]);
-  //cimg.src = event.target.files[0].name;
   cimg.src = URL.createObjectURL(event.target.files[0]);
 }
 
@@ -55,16 +49,53 @@ download.onclick = function(){
   download.href = capture;
 }
 
+var swap = document.getElementById("swap");
+var order = 1;
+swap.onclick = function(){
+  order = !order;
+  draw();
+}
 
-var capture = canvas.toDataURL("capture.png");
-//document.write('<img src="'+img+'"/>');
+var initx, inity;
+function xymouse(event){
+  xPos -= initx - event.clientX;
+  yPos -= inity - event.clientY;
+  initx = event.clientX;
+  inity = event.clientY;
+  console.log(event.clientX, event.clientY);
+  draw();
+}
+canvas.onmousedown = function(event){
+  console.log(event.clientX, event.clientY);
+  initx = event.clientX;
+  inity = event.clientY;
+  canvas.onmousemove = xymouse;
+}
+canvas.onmouseup = function(event){
+  console.log(event.clientX, event.clientY);
+  canvas.onmousemove = null;
+}
 
 
 function draw(){
   ctx.clearRect(0,0,canvas.width, canvas.height);
-  ctx.drawImage(cimg, xPos, yPos, cimg.width/scale, cimg.height/scale);
-  ctx.drawImage(img, 0, 0);
+  var w = cimg.width/scale;
+  var h = cimg.height/scale;
+  if(order){
+    ctx.drawImage(cimg, xPos, yPos, w, h);
+    ctx.drawImage(img, 0, 0);
+  }else{
+    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(cimg, xPos, yPos, w, h);
+  }
 }
+
+
+
+
+
+
+
 
 
 
