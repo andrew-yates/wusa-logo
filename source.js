@@ -31,6 +31,8 @@ rower.oninput = function(){
 
 var cimg = new Image();
 cimg.onload = function(){
+  xPos = 285;
+  yPos = 460;
   draw();
 }
 
@@ -66,6 +68,25 @@ canvas.onmousedown = function(event){
 }
 canvas.onmouseup = function(event){
   canvas.onmousemove = null;
+}
+
+function xytouch(event){
+  var tx = event.touches[0].clientX;
+  var ty = event.touches[1].clientY;
+  xPos -= initx - tx;
+  yPos -= inity - ty;
+  initx = tx;
+  inity = ty;
+  draw();
+}
+canvas.ontouchstart = function(event){
+  console.log(event.touches);
+  initx = event.touches[0].clientX;
+  inity = event.touches[0].clientY;
+  canvas.ontouchmove = xytouch;
+}
+canvas.ontouchend = function(event){
+  canvas.ontouchmove = null;
 }
 
 
