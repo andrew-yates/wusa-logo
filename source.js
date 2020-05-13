@@ -6,6 +6,7 @@ canvas.width = 1080;
 
 var img = new Image();
 img.onload = function(){
+  //img.setAttribute('crossorigin', 'anonymous');
   ctx.drawImage(img, 0, 0);
 }
 img.src = "base_logo_with_cutout.png";
@@ -35,6 +36,7 @@ rower.oninput = function(){
 
 var cimg = new Image();
 cimg.onload = function(){
+  //cimg.setAttribute('crossorigin', 'anonymous');
   draw();
   //ctx.drawImage(cimg, 200, 500, cimg.width/scale, cimg.height/scale);
   //ctx.drawImage(img, 0, 0);
@@ -45,6 +47,17 @@ file.onchange = function(event){
   //cimg.src = event.target.files[0].name;
   cimg.src = URL.createObjectURL(event.target.files[0]);
 }
+
+var download = document.getElementById("download");
+download.onclick = function(){
+  console.log("download");
+  var capture = canvas.toDataURL("capture.png");
+  //capture.download = "image.png";
+}
+
+
+var capture = canvas.toDataURL("capture.png");
+//document.write('<img src="'+img+'"/>');
 
 
 function draw(){
