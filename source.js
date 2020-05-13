@@ -52,7 +52,7 @@ var download = document.getElementById("download");
 download.onclick = function(){
   console.log("download");
   var capture = canvas.toDataURL("capture.png");
-  //capture.download = "image.png";
+  capture.download = "image.png";
 }
 
 
