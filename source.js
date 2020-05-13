@@ -11,24 +11,21 @@ img.onload = function(){
 img.src = "base_logo_with_cutout.png";
 
 var scale = 1;
-var xPos = 200;
-var yPos = 500;
+var xPos = 285;
+var yPos = 460;
 var scaler = document.getElementById("scale");
 var columner = document.getElementById("xPos");
 var rower = document.getElementById("yPos");
 scaler.oninput = function(){
-  scale = (101-scaler.value)/50;
-  console.log(scale);
+  scale = (119-scaler.value)/50;
   draw();
 }
 columner.oninput = function(){
   xPos = columner.value;
-  console.log(xPos);
   draw();
 }
 rower.oninput = function(){
   yPos = rower.value;
-  console.log(yPos);
   draw();
 }
 
@@ -38,13 +35,11 @@ cimg.onload = function(){
 }
 
 file.onchange = function(event){
-  console.log(event.target.files[0]);
   cimg.src = URL.createObjectURL(event.target.files[0]);
 }
 
 var download = document.getElementById("download");
 download.onclick = function(){
-  console.log("download");
   var capture = canvas.toDataURL("capture.png");
   download.href = capture;
 }
@@ -62,17 +57,14 @@ function xymouse(event){
   yPos -= inity - event.clientY;
   initx = event.clientX;
   inity = event.clientY;
-  console.log(event.clientX, event.clientY);
   draw();
 }
 canvas.onmousedown = function(event){
-  console.log(event.clientX, event.clientY);
   initx = event.clientX;
   inity = event.clientY;
   canvas.onmousemove = xymouse;
 }
 canvas.onmouseup = function(event){
-  console.log(event.clientX, event.clientY);
   canvas.onmousemove = null;
 }
 
@@ -89,8 +81,6 @@ function draw(){
     ctx.drawImage(cimg, xPos, yPos, w, h);
   }
 }
-
-
 
 
 
